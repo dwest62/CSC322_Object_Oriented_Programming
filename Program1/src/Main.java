@@ -135,7 +135,7 @@ class DogToyAggregationTest
 		Dog testDog = new Dog("Buster", testToy);
 
 		// Note: assert only triggers if -ea is passed as a parameter.
-		assert Objects.equals(testDog.getFavoriteToy(), null) : "Given testDog initialized as a Dog type with " +
+		assert Objects.equals(testDog.getFavoriteToy(), testToy) : "Given testDog initialized as a Dog type with " +
 				"testToy passed as the favoriteToy parameter, getFavoriteToy() should return a reference to testToy.";
 		System.out.println("Aggregation test passed!");
 	}
