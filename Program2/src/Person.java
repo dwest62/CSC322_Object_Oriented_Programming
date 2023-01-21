@@ -9,7 +9,6 @@ public class Person
 	private String emailAddress;
 
 	/**
-	 * Represents a person
 	 * @param name Name of person
 	 * @param address Street address of person
 	 * @param phoneNumber Phone number of person

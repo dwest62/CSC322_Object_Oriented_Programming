@@ -8,8 +8,6 @@
  * I certify, that this computer program submitted by me is all of my own work. Signed: James West
  */
 
-import java.util.Date;
-
 /**
  * Main class tests the program by initiating each class and printing their toString method (which is overridden to
  * return the name and class name of the object) to the console.
@@ -42,7 +40,7 @@ public class Main
 				"panderson@gmail.com",
 				"12F",
 				65000.00,
-				new Date(2022, 1, 12)
+				new MyDate()
 		);
 		
 		Faculty faculty = new Faculty(
@@ -52,7 +50,7 @@ public class Main
 				"panderson@gmail.com",
 				"12F",
 				65000.00,
-				new Date(2022, 1, 12),
+				new MyDate(),
 				"MWF 1300 to 1500",
 				"Associate Professor"
 		);
@@ -64,7 +62,7 @@ public class Main
 				"panderson@gmail.com",
 				"12F",
 				65000.00,
-				new Date(2022, 1, 12),
+				new MyDate(),
 				"Human Resources"
 		);
 		
@@ -75,7 +73,7 @@ public class Main
 		System.out.println(employee);
 		System.out.println(faculty);
 		System.out.println(staff);
-
+		
 		// Assert toString method of each object returns a String consisting of the Objects name field and Class name
 		//      with a space in between
 		

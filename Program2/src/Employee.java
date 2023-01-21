@@ -1,5 +1,3 @@
-import java.util.Date;
-
 /**
  * Represents an Employee
  */
@@ -7,10 +5,10 @@ public class Employee extends Person
 {
 	private String office;
 	private double salary;
-	private Date dateHired;
+	private MyDate dateHired;
 
 	public Employee(String name, String address, String phoneNumber, String emailAddress, String office, double salary,
-	                Date dateHired)
+	                MyDate dateHired)
 	{
 		super(name, address, phoneNumber, emailAddress);
 		this.office = office;
@@ -38,12 +36,12 @@ public class Employee extends Person
 		this.salary = salary;
 	}
 
-	public Date getDateHired()
+	public MyDate getDateHired()
 	{
 		return dateHired;
 	}
 
-	public void setDateHired(Date dateHired)
+	public void setDateHired(MyDate dateHired)
 	{
 		this.dateHired = dateHired;
 	}
