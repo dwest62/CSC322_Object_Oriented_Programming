@@ -16,7 +16,7 @@ public class Student extends Person
 		return STATUS;
 	}
 	
-	public static enum Status
+	public enum Status
 	{
 		FRESHMAN,
 		SOPHOMORE,
