@@ -1,3 +1,6 @@
+/**
+ * Represents Software
+ */
 public class Software extends Item
 {
     private String version;

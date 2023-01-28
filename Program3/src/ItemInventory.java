@@ -1,34 +1,65 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class ItemInventory
-{
-    private final ArrayList<ItemEntry> entries;
 
-    private ItemInventory(ArrayList<ItemEntry> entries)
-    {
-        this.entries = entries;
-    }
-
-    public static ItemInventory load(String file) throws FileNotFoundException
-    {
-        Scanner fileIn = new Scanner(new File(file));
-        ArrayList<ItemEntry> entries = new ArrayList<>();
-
-        while (fileIn.hasNextLine())
-        {
-            String[] itemData = fileIn.nextLine().split("\\|");
-            String quantity = itemData[itemData.length - 1];
-
-            entries.add(new ItemEntry(ItemFromFileFactory.build(itemData), Integer.parseInt(quantity)));
-        }
-        return new ItemInventory(entries);
-    }
-
-    public ArrayList<ItemEntry> getEntries()
-    {
-        return entries;
-    }
+/**
+ * Represents an Item Inventory. Contains ArrayList of entries and methods to build Item Entries from file data.
+ */
+public class ItemInventory {
+	private final ArrayList<ItemEntry> entries;
+	
+	/**
+	 * Item Inventory is initialized through the load factory method
+	 * @param entries Inventory entries
+	 */
+	private ItemInventory (ArrayList<ItemEntry> entries) {
+		this.entries = entries;
+	}
+	
+	/**
+	 * Load data from file and return an Item Inventory object initialized with entry data.
+	 * @param file file path
+	 * @return Item Inventory Object initialized with file data
+	 */
+	public static ItemInventory load (String file) throws IOException {
+		ArrayList<ItemEntry> entries = new ArrayList<>();
+		final AtomicInteger index = new AtomicInteger();
+		Arrays.stream(
+			(String[][]) Arrays
+				.stream(Files.readString(Path.of(file)).split("\n"))
+				.map(e -> e.split("\\|"))
+				.toArray()
+		).forEach(e -> addEntry(e, index.getAndIncrement(), entries));
+		
+		return new ItemInventory(entries);
+	}
+	
+	/**
+	 * Add ItemEntry to ArrayList
+	 * @param itemData data to be added
+	 * @param i index of file line being processed
+	 * @param entries ArrayList to update
+	 */
+	private static void addEntry (String[] itemData, int i, ArrayList<ItemEntry> entries) {
+		try {
+			entries.add(
+				new ItemEntry(ItemFromFileFactory.build(itemData),
+				Integer.parseInt(itemData[itemData.length -1]))
+			);
+		} catch (IllegalArgumentException exception) {
+			System.out.println("Warning: Unable to parse file entry on line " + i + ". " + exception.getMessage()
+				+ "\n" + Arrays.toString(itemData) + "\n");
+		}
+	}
+	
+	/**
+	 * @return ArrayList containing Item Entries in inventory
+	 */
+	public ArrayList<ItemEntry> getEntries () {
+		return entries;
+	}
 }

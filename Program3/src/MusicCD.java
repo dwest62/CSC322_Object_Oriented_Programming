@@ -1,4 +1,8 @@
 import java.util.Date;
+
+/**
+ * Represents a Music CD
+ */
 public class MusicCD extends Item
 {
     private String artists;
