@@ -1,5 +1,7 @@
+package Item;
+
 /**
- * Represents a Book
+ * Represents a Item.Book
  */
 public class Book extends Item
 {

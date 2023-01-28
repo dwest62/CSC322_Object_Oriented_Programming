@@ -1,3 +1,4 @@
+import Item.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
@@ -54,7 +55,7 @@ public class OnlineStore {
 	}
 	
 	/**
-	 * @param t Item subclass
+	 * @param t Item.Item subclass
 	 * @return List of item entries from inventory filtered by subclass
 	 */
 	private static List<ItemEntry> getFilteredEntries (Class<?> t) {
@@ -62,8 +63,8 @@ public class OnlineStore {
 	}
 	
 	/**
-	 * Prints a table outlining various Item Entry properties
-	 * @param entries Collection of type Item Entry
+	 * Prints a table outlining various Item.Item Entry properties
+	 * @param entries Collection of type Item.Item Entry
 	 */
 	private static void printTable (Collection<ItemEntry> entries) {
 		System.out.println();
@@ -77,7 +78,7 @@ public class OnlineStore {
 	
 	/**
 	 * Prints formatted table row containing info regarding an item entry
-	 * @param entry ItemEntry to print
+	 * @param entry Item.ItemEntry to print
 	 */
 	private static void printEntry(ItemEntry entry) {
 		Item item = entry.getItem();

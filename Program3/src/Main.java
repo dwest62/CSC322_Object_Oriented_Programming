@@ -1,6 +1,6 @@
 /**
  * Author: James West Date: 01.27.2023 Class: Spring 100 CSC322 Intro Programming with Java Assignment: Program3
- * Description: Online Store. Represents a CLI which filters and displays various types of "Item"s for an Online Store.
+ * Description: Online Store. Represents a CLI which filters and displays various types of "Item.Item"s for an Online Store.
  *
  * I certify, that this computer program submitted by me is all of my own work. Signed: James West
  **/

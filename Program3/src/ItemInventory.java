@@ -1,3 +1,5 @@
+import Item.ItemEntry;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -5,15 +7,14 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-
 /**
- * Represents an Item Inventory. Contains ArrayList of entries and methods to build Item Entries from file data.
+ * Represents an Item.Item Inventory. Contains ArrayList of entries and methods to build Item.Item Entries from file data.
  */
 public class ItemInventory {
 	private final ArrayList<ItemEntry> entries;
 	
 	/**
-	 * Item Inventory is initialized through the load factory method
+	 * Item.Item Inventory is initialized through the load factory method
 	 * @param entries Inventory entries
 	 */
 	private ItemInventory (ArrayList<ItemEntry> entries) {
@@ -21,9 +22,9 @@ public class ItemInventory {
 	}
 	
 	/**
-	 * Load data from file and return an Item Inventory object initialized with entry data.
+	 * Load data from file and return an Item.Item Inventory object initialized with entry data.
 	 * @param file file path
-	 * @return Item Inventory Object initialized with file data
+	 * @return Item.Item Inventory Object initialized with file data
 	 */
 	public static ItemInventory load (String file) throws IOException {
 		ArrayList<ItemEntry> entries = new ArrayList<>();
@@ -34,20 +35,18 @@ public class ItemInventory {
 				.map(e -> e.trim().split("\\|"))
 				.toArray()
 		).forEach(e -> addEntry((String[]) e, index.getAndIncrement(), entries));
-		
-		System.out.println(entries.size());
+
 		
 		return new ItemInventory(entries);
 	}
 	
 	/**
-	 * Add ItemEntry to ArrayList
+	 * Add Item.ItemEntry to ArrayList
 	 * @param itemData data to be added
 	 * @param i index of file line being processed
 	 * @param entries ArrayList to update
 	 */
 	private static void addEntry (String[] itemData, int i, ArrayList<ItemEntry> entries) {
-		System.out.println();
 		try {
 			entries.add(
 				new ItemEntry(ItemFromFileFactory.build(itemData),
@@ -60,7 +59,7 @@ public class ItemInventory {
 	}
 	
 	/**
-	 * @return ArrayList containing Item Entries in inventory
+	 * @return ArrayList containing Item.Item Entries in inventory
 	 */
 	public ArrayList<ItemEntry> getEntries () {
 		return entries;

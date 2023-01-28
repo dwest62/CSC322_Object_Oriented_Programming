@@ -1,5 +1,7 @@
+package Item;
+
 /**
- * Represents Software
+ * Represents Item.Software
  */
 public class Software extends Item
 {
