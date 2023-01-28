@@ -1,10 +1,13 @@
+/**
+ * Represents a Book
+ */
 public class Book extends Item
 {
     private String authors;
     private String edition;
     private String publisher;
     private int pubYear;
-
+    
     public Book(String title, double price, String authors, String edition, String publisher, int pubYear)
     {
         super(title, price);
@@ -13,11 +16,13 @@ public class Book extends Item
         this.publisher = publisher;
         this.pubYear = pubYear;
     }
-
+    
+ 
     public String getAuthors()
     {
         return authors;
     }
+    
 
     public void setAuthors(String authors)
     {
@@ -28,7 +33,7 @@ public class Book extends Item
     {
         return edition;
     }
-
+    
     public void setEdition(String edition)
     {
         this.edition = edition;

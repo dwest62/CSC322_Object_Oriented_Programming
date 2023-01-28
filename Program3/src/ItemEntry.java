@@ -1,8 +1,11 @@
+/**
+ * Represents an Item Entry
+ */
 public class ItemEntry
 {
     private Item item;
     private int quantity;
-
+    
     public ItemEntry(Item item, int quantity)
     {
         this.item = item;
