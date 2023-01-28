@@ -5,9 +5,12 @@
  * I certify, that this computer program submitted by me is all of my own work. Signed: James West
  **/
 
+import Store.OnlineStore;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
-// Main class initializes OnlineStore and checks for errors
+// Main class initializes Store.OnlineStore and checks for errors
 public class Main {
 	public static void main (String[] args) {
 //		Check if file path provided

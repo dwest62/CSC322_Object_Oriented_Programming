@@ -1,7 +1,7 @@
 package Item;
 
 /**
- * Represents a Item.Book
+ * Represents a Book
  */
 public class Book extends Item
 {

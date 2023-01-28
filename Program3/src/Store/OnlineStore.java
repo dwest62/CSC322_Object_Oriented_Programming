@@ -1,4 +1,8 @@
+package Store;
+import Menu.CLIMenu;
 import Item.*;
+import Menu.CLIOption;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
@@ -11,13 +15,13 @@ public class OnlineStore {
 	private static ItemInventory itemInventory;
 	
 //	Menu initialized with desired options.
-	private static final CLIMenu MENU = new CLIMenu (
-		new CLIMenu.CLIOption[] {
-			new CLIMenu.CLIOption(1, "Show all items", () -> printTable(itemInventory.getEntries())),
-			new CLIMenu.CLIOption(2, "Show only music CD", () -> printTable(getFilteredEntries(MusicCD.class))),
-			new CLIMenu.CLIOption(3, "Show only books", () -> printTable(getFilteredEntries(Book.class))),
-			new CLIMenu.CLIOption(4, "Show only software", () -> printTable(getFilteredEntries(Software.class))),
-			new CLIMenu.CLIOption(5, "Exit program", () -> System.out.println("Thanks " + "for visiting!"))
+	private static final CLIMenu MENU = new CLIMenu(
+		new CLIOption[] {
+			new CLIOption(1, "Show all items", () -> printTable(itemInventory.getEntries())),
+			new CLIOption(2, "Show only music CD", () -> printTable(getFilteredEntries(MusicCD.class))),
+			new CLIOption(3, "Show only books", () -> printTable(getFilteredEntries(Book.class))),
+			new CLIOption(4, "Show only software", () -> printTable(getFilteredEntries(Software.class))),
+			new CLIOption(5, "Exit program", () -> System.out.println("Thanks " + "for visiting!"))
 		}
 	);
 
@@ -73,6 +77,7 @@ public class OnlineStore {
 		System.out.println(HEADER);
 		System.out.println(BAR);
 		entries.forEach(OnlineStore::printEntry);
+		System.out.println(BAR);
 		System.out.println();
 	}
 	

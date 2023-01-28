@@ -1,3 +1,5 @@
+package Menu;
+
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -14,7 +16,7 @@ public class CLIMenu {
 	/**
 	 * @param OPTIONS Array containing the options the menu will display
 	 */
-	protected CLIMenu (CLIOption[] OPTIONS) {
+	public CLIMenu (CLIOption[] OPTIONS) {
 		this.OPTIONS = OPTIONS;
 	}
 	
@@ -45,54 +47,10 @@ public class CLIMenu {
 	}
 	
 	/**
-	 * @param defaultOption new CLIMenu.CLIOption to be executed upon invalid input
+	 * @param defaultOption new Menu.CLIMenu.CLIOption to be executed upon invalid input
 	 */
 	public void setDefaultOption (CLIOption defaultOption) {
 		DefaultOption = defaultOption;
-	}
-	
-	/**
-	 * Represents an option for a CLI menu
-	 */
-	public static class CLIOption {
-	//	These could be changed from final for more flexibility
-		private final String DESCRIPTION;
-		private final Procedure PROCEDURE;
-		private final int N;
-		
-		/**
-		 * @param N Number of option
-		 * @param DESCRIPTION Descriptive text
-		 * @param PROCEDURE Executable procedure to be run when option is chosen
-		 */
-		CLIOption (int N, String DESCRIPTION, Procedure PROCEDURE) {
-			this.N = N;
-			this.DESCRIPTION = DESCRIPTION;
-			this.PROCEDURE = PROCEDURE;
-		}
-		
-		public Procedure getPROCEDURE () {
-			return PROCEDURE;
-		}
-		public String getDESCRIPTION () {
-			return DESCRIPTION;
-		}
-		public int getN()
-		{
-			return N;
-		}
-		@Override
-		public String toString () {
-			return N + ") " + DESCRIPTION;
-		}
-		
-		/**
-		 * Functional Interface with no parameters and no return value.
-		 */
-		@FunctionalInterface
-		public interface Procedure {
-			void execute ();
-		}
 	}
 	
 }

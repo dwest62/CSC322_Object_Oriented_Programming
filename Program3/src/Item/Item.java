@@ -1,7 +1,7 @@
 package Item;
 
 /**
- * Represents an Item.Item of generic type
+ * Represents an Item of generic type
  */
 public abstract class Item {
 	private String title;

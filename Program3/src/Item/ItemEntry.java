@@ -1,7 +1,7 @@
 package Item;
 
 /**
- * Represents an Item.Item Entry
+ * Represents an Item Entry
  */
 public class ItemEntry
 {

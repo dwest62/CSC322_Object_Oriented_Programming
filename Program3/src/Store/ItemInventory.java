@@ -1,5 +1,6 @@
-import Item.ItemEntry;
+package Store;
 
+import Item.ItemEntry;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
