@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/CLI/CLI.iml" filepath="$PROJECT_DIR$/CLI/CLI.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/CSC322_Object_Oriented_Programming.iml" filepath="$PROJECT_DIR$/.idea/CSC322_Object_Oriented_Programming.iml" />
       <module fileurl="file://$PROJECT_DIR$/Program1/Program1.iml" filepath="$PROJECT_DIR$/Program1/Program1.iml" />
       <module fileurl="file://$PROJECT_DIR$/Program2/Program2.iml" filepath="$PROJECT_DIR$/Program2/Program2.iml" />

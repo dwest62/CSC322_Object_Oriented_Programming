@@ -4,6 +4,7 @@ package com.jsoftware.test.api;
  *
  * @author thaoc
  */
+@SuppressWarnings("ALL")
 public interface IShortAnswerQuestion extends IQuestion{
 	/**
 	 * Check answer for short answer question.

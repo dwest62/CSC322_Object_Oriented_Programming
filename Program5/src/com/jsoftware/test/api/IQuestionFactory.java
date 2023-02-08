@@ -6,6 +6,7 @@ import java.io.IOException;
  *
  * @author thaoc
  */
+@SuppressWarnings("ALL")
 public interface IQuestionFactory {
 	/**
 	 * creates a multiple choice question.

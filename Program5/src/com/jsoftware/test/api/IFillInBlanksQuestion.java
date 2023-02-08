@@ -8,6 +8,7 @@ package com.jsoftware.test.api;
  * @author thaoc
  */
 
+@SuppressWarnings("ALL")
 public interface IFillInBlanksQuestion extends IQuestion{
 	/**
 	 * A fill in the blank question may contain multiple blanks.
@@ -16,4 +17,5 @@ public interface IFillInBlanksQuestion extends IQuestion{
 	 * @return 
 	 */
 	public boolean checkAnswer(String[] keywords);
+	
 }

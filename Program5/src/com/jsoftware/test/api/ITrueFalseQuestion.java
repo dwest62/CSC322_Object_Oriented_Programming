@@ -7,6 +7,7 @@ package com.jsoftware.test.api;
  *
  * @author thaoc
  */
+@SuppressWarnings("ALL")
 public interface ITrueFalseQuestion extends IQuestion{
 		/**
 	 * Check if the answer is correct.  

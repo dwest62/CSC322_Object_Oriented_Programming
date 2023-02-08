@@ -5,6 +5,7 @@ package com.jsoftware.test.api;
  * 
  * @author thaoc
  */
+@SuppressWarnings("ALL")
 public interface IQuestionSet {
 	
 	/**

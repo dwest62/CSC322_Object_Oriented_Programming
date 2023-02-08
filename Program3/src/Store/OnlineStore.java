@@ -1,7 +1,7 @@
 package Store;
-import Menu.CLIMenu;
+import menu.CLIMenu;
 import Item.*;
-import Menu.CLIOption;
+import menu.CLIOption;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -63,7 +63,7 @@ public class OnlineStore {
 	 * @return List of item entries from inventory filtered by subclass
 	 */
 	private static List<ItemEntry> getFilteredEntries (Class<?> t) {
-		return itemInventory.getEntries().stream().filter(data -> data.getItem().getClass() == t).toList();
+		return itemInventory.getEntries().stream().filter(data -> data.getItem().getClass().isInstance(t)).toList();
 	}
 	
 	/**

@@ -1,4 +1,19 @@
 package com.jsoftware.test.impl;
 
-public class Question {
+import com.jsoftware.test.api.IQuestion;
+
+
+public class Question implements IQuestion, java.io.Serializable  {
+	private String question;
+	
+	public Question(String question) {this.question = question;}
+	
+	@Override
+	public String getQuestion() {
+		return this.question;
+	}
+	
+	public void setQuestion(String question) {
+		this.question = question;
+	}
 }
