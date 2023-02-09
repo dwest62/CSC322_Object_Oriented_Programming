@@ -13,7 +13,12 @@ import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
+
+/**
+ * Represents a test taker CLI which allows prompts the user for answers to questions and provides feedback.
+ */
 public class TestTaker {
+//	Number of correct answers
 	private static int correctAnswerCount = 0;
 	private static final QuestionFactory FACTORY = new QuestionFactory();
 	private static IQuestionSet SET;
@@ -21,10 +26,11 @@ public class TestTaker {
 	public static void main(String[] args) {
 		loadQuestionSet();
 		loadCurrentQuestionSet();
-		runTest();
+		testQuestions();
 		printResults();
 	}
 	
+//	Map of test type to test question function which prompts user for answer and validates answer
 	private static final Map<Class<? extends IQuestion>, Function<IQuestion, Boolean>> QUESTION_TEST_MAP =
 		Map.of(
 			IShortAnswerQuestion.class, e -> testShortAnswer((IShortAnswerQuestion) e),
@@ -33,6 +39,9 @@ public class TestTaker {
 			IMultipleChoiceQuestion.class, e -> testMultipleChoice((IMultipleChoiceQuestion) e)
 		);
 	
+	/**
+	 * Attempts to load file from user prompt for filename. Will try to append .dat to filename if first attempt fails.
+	 */
 	private static void loadQuestionSet() {
 		Supplier<IQuestionSet> promptSet = () -> {
 			String fileName = PromptHelper.getString("What test would you like to take? ");
@@ -51,6 +60,9 @@ public class TestTaker {
 		System.out.println("\nTest loaded successful!\n");
 	}
 	
+	/**
+	 * Get user choice between full test and random sample and sets questions to random sample if needed.
+	 */
 	private static void loadCurrentQuestionSet() {
 		int choice  = PromptHelper.getSanitizedInt(
 			"Enter 1 to take a whole test or 2 to take a sample test.\nYour Choice: ",
@@ -60,18 +72,29 @@ public class TestTaker {
 		SET = choice == 1 ? SET : promptRandomSample();
 	}
 	
-	private static void runTest() {
+	/**
+	 * Loop through the question set and test user on each question
+	 */
+	private static void testQuestions () {
 		String bar = "-".repeat(28);
 		System.out.print(bar + "\n\nThe test starts now!\n" + bar + "\n");
 		IntStream.range(0,  SET.size()).forEach(TestTaker::testQuestion);
 	}
 	
+	/**
+	 * @param index The index of the current question being tested
+	 */
 	private static void testQuestion(int index) {
 		final IQuestion QUESTION = SET.getQuestion(index);
-		String question = "\nQuestion " + (index + 1) + " of " + SET.size() + ":\n" + "-".repeat(17) + "\n"
-				+ QUESTION.getQuestion();
 		
+//		print question header
+		String question = "\nQuestion " + (index + 1) + " of " + SET.size() + ":\n" + "-".repeat(17) + "\n"
+				+ QUESTION.getQUESTION();
+		
+//		print question
 		System.out.println(question);
+		
+//		Loop through question type map. Attempt to match implemented class with inherited key.
 		try {
 			correctAnswerCount +=
 				QUESTION_TEST_MAP
@@ -84,10 +107,14 @@ public class TestTaker {
 					.apply(QUESTION)
 				? 1 : 0;
 		} catch (NoSuchElementException ex) {
-			System.out.println("Fatal error processing Question. " + ex.getMessage());
+//			If code reaches here, the question being processed is not a valid subtype of any class in map.
+			
+			System.out.println("Fatal error processing Question. No handling for question type: " + QUESTION.getClass()
+				+". " + ex.getMessage());
 			System.exit(0);
 		}
 	}
+	
 	private static Boolean testTrueFalse (ITrueFalseQuestion question) {
 		System.out.println("True/False?");
 		return question.checkAnswer(PromptHelper.getSanitizedBoolean("Your answer: "));
@@ -108,6 +135,7 @@ public class TestTaker {
 			Arrays
 				.stream(PromptHelper.getString("Your answer (Separate answers with comma.): ").split(","))
 				.map(String::trim).toArray(String[]::new);
+		
 		return question.checkAnswer(ANSWER);
 	}
 	
@@ -115,9 +143,13 @@ public class TestTaker {
 		return question.checkAnswer(PromptHelper.getString("Your answer: "));
 	}
 	
+	/**
+	 * @return Prompt for number of questions in sample and return random sample
+	 */
 	private static IQuestionSet promptRandomSample() {
 		final String PROMPT_N = "How many questions would you like to sample? ";
 		final String ERR_MSG = "Invalid input. Please enter a number above 0";
+		
 		Predicate<Integer> isGreaterThanZero = e -> e > 0;
 		return SET.randomSample(PromptHelper.getSanitizedInt(PROMPT_N,ERR_MSG, isGreaterThanZero));
 	}

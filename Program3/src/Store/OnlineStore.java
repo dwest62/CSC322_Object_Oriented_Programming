@@ -9,6 +9,7 @@ import java.util.*;
 
 /**
  * Represents a CLI which displays a filtered table of item entries based on the users choice.
+ * @author jwest
  */
 public class OnlineStore {
 //	Inventory loaded from file.

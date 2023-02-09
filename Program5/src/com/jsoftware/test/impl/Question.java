@@ -3,17 +3,20 @@ package com.jsoftware.test.impl;
 import com.jsoftware.test.api.IQuestion;
 
 
-public class Question implements IQuestion, java.io.Serializable  {
-	private String question;
+/**
+ * Abstract class represents a Question.
+ * @author jwest
+ */
+public abstract class Question implements IQuestion, java.io.Serializable  {
+	private final String QUESTION;
 	
-	public Question(String question) {this.question = question;}
+	public Question(String question) {this.QUESTION = question;}
 	
+	/**
+	 * @return Text of question
+	 */
 	@Override
-	public String getQuestion() {
-		return this.question;
-	}
-	
-	public void setQuestion(String question) {
-		this.question = question;
+	public String getQUESTION () {
+		return this.QUESTION;
 	}
 }

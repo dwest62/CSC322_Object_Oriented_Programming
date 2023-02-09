@@ -14,6 +14,9 @@ import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
 
+/**
+ * Represents a CLI which allows the user to create a new test. The test will be saved to file upon exit of program.
+ */
 public class TestMaker {
 	private static final QuestionFactory FACTORY = new QuestionFactory();
 	private static String NAME = "test";
@@ -28,6 +31,7 @@ public class TestMaker {
 			new CLIOption(6, "exit program", TestMaker::exit)
 		}
 	);
+//	Entry point of program
 	public static void main(String[] args) {
 		init();
 		MENU.runMenu("\nWhat would you like to do?", "Your choice: ", 6);
@@ -36,7 +40,11 @@ public class TestMaker {
 		System.out.println("Welcome to the TestMaker program!\n");
 		NAME = PromptHelper.getString("What would you like to call this test? ");
 	}
-
+	
+	
+	/**
+	 * Add a multiple choice question to question set
+	 */
 	private static void addMultipleChoice() {
 		final String QUESTION = PromptHelper.getString("\nWhat is your multiple-choice question?\n");
 		System.out.println();
@@ -58,7 +66,9 @@ public class TestMaker {
 		SET.add(FACTORY.makeMultipleChoice(QUESTION, CHOICES, ANSWER));
 	}
 	
-	
+	/**
+	 * Add a true / false question to question set
+	 */
 	private static void addTrueFalse() {
 		final String QUESTION = PromptHelper.getString("\nWhat is your true/false question?\n");
 		final boolean ANSWER = PromptHelper.getSanitizedBoolean(
@@ -66,8 +76,12 @@ public class TestMaker {
 		
 		SET.add(FACTORY.makeTrueFalse(QUESTION, ANSWER));
 	}
-	//TODO
+	
+	/**
+	 * Add a fill-in-the-blanks question to question set
+	 */
 	private static void addFillInBlanks() {
+//		Get question with at least one blank
 		Predicate<String> hasABlank =
 			s -> Arrays.stream(s.split(" ")).anyMatch(e -> e.matches("^ ?_+[^A-Za-z]?$"));
 		final String QUESTION =
@@ -77,20 +91,30 @@ public class TestMaker {
 				hasABlank
 			);
 			
+		/*
+			User will be prompted for a String ANSWER which is split on comma, trimmed of whitespace, and collected to array.
+			Sanitize Prompt display error message and retry prompt if any exception is thrown.
+		*/
 		IQuestion Q = PromptHelper.sanitizePrompt(
 			() -> {
 				final String ANSWER =
 					PromptHelper.getString("\nWhat is the answer? Please separate with commas.\n");
-				if (ANSWER.length() == 0) throw new IllegalArgumentException("Invalid input. Please enter a keyword.");
+				
+//				Parse array from String. Split on comma, trim whitespace, and collect.
 				final String[] ANSWERS =
 					Arrays.stream(ANSWER.split(",")).map(String::trim).toArray(String[]::new);
+				
+//
 				return FACTORY.makeFillInBlank(QUESTION, ANSWERS);
 			}
 		);
 		
 		SET.add(Q);
 	}
-	//TODO
+	
+	/**
+	 * Add a short answer question to question set
+	 */
 	private static void addShortAnswer() {
 		String QUESTION = PromptHelper.getString("\nWhat is your short answer question?\n");
 		
@@ -101,6 +125,7 @@ public class TestMaker {
 		);
 		System.out.println();
 		
+//		Get keywords iterating over a stream of ints from given range, prompting user for keywords
 		final String[] KEYWORDS =
 			IntStream
 				.range(0, N_KEYWORDS)
@@ -111,42 +136,44 @@ public class TestMaker {
 		SET.add(FACTORY.makeShortAnswer(QUESTION, KEYWORDS));
 	}
 	
-	//TODO
+	/**
+	 * remove question from question set
+	 */
 	private static void removeQuestion() {
-		if (SET.size() == 0) {
-			System.out.println("\nThere are currently no questions in the test.");
-		}
+//		Handle case where set is empty
+		if (SET.size() == 0) System.out.println("\nThere are currently no questions in the test.");
 		else {
 			final String PROMPT = getQuestions();
 			final String ERR_MSG =
 				"Invalid input. Please enter a valid integer within range 0 - " + (SET.size() - 1) + ".";
-			final Predicate<Integer> IS_VALID_INDEX = e -> e >= 0 && e < SET.size();
-			
-			final int INDEX = PromptHelper.getSanitizedInt(
-				PROMPT,
-				ERR_MSG,
-				IS_VALID_INDEX
-			);
-			
-			SET.remove(INDEX);
+
+//			Prompt for int and run remove from set using its boolean result as a predicate to validate input.
+			final Predicate<Integer> IS_VALID_INDEX = SET::remove;
+			PromptHelper.getSanitizedInt(PROMPT, ERR_MSG, IS_VALID_INDEX);
 		}
 	}
 	
-	//TODO
+	/**
+	 * Save test and print exit message
+	 */
 	private static void exit() {
-		FACTORY.save(SET, TestMaker.NAME + ".dat");
+//		Save file under file name appending .dat extension of not already added
+		FACTORY.save(SET, TestMaker.NAME.matches(".dat$") ? TestMaker.NAME : TestMaker.NAME + ".dat");
 		System.out.println("\nTest saved\nGoodbye!");
 	}
+	
+	/**
+	 * @return Get indexed String of current of questions to display to user
+	 */
 	private static String getQuestions() {
 		final StringBuilder PROMPT_BUILDER =
 			new StringBuilder("\nSelect the index of the question you would like to remove.\n\n");
 		
-		BiConsumer<Integer, StringBuilder> appendQuestion =
-			(i, sb) ->
-                sb.append("Question ").append(i).append(") ").append(SET.getQuestion(i).getQuestion()).append("\n");
+		IntStream
+			.range(0, SET.size())
+			.forEach(e -> PROMPT_BUILDER.append(
+				String.format("Question %d) %s\n", e, SET.getQuestion(e).getQUESTION())));
 		
-		IntStream.range(0, SET.size()).forEach(e -> appendQuestion.accept(e, PROMPT_BUILDER));
-		PROMPT_BUILDER.append("Your choice: ");
-		return PROMPT_BUILDER.toString();
+		return PROMPT_BUILDER.append("Your choice: ").toString();
 	}
 }

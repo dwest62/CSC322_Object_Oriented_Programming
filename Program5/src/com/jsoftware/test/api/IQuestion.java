@@ -4,7 +4,6 @@ package com.jsoftware.test.api;
  *
  * @author thaoc
  */
-@SuppressWarnings("ALL")
 public interface  IQuestion {
 	/**
 	 * Return a formatted question as a string.  It should include options if
@@ -20,6 +19,6 @@ public interface  IQuestion {
 	 * True false example:
 	 * int is not a primitive data type in Java.  True/False?
 	 */
-	public String getQuestion();
+	public String getQUESTION ();
 	
 }
