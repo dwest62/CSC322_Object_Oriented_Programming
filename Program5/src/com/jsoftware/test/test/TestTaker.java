@@ -3,7 +3,6 @@ package com.jsoftware.test.test;
 import util.PromptHelper;
 import com.jsoftware.test.api.*;
 import com.jsoftware.test.impl.QuestionFactory;
-
 import java.util.Arrays;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -96,7 +95,7 @@ public class TestTaker {
 		
 //		Loop through question type map. Attempt to match implemented class with inherited key.
 		try {
-			correctAnswerCount +=
+			boolean isCorrect =
 				QUESTION_TEST_MAP
 					.entrySet()
 					.stream()
@@ -104,8 +103,9 @@ public class TestTaker {
 					.findAny()
 					.orElseThrow(NoSuchElementException::new)
 					.getValue()
-					.apply(QUESTION)
-				? 1 : 0;
+					.apply(QUESTION);
+			correctAnswerCount += isCorrect ? 1 : 0;
+			System.out.println(isCorrect ? "You got it!" : "Wrong!");
 		} catch (NoSuchElementException ex) {
 //			If code reaches here, the question being processed is not a valid subtype of any class in map.
 			
@@ -150,8 +150,9 @@ public class TestTaker {
 		final String PROMPT_N = "How many questions would you like to sample? ";
 		final String ERR_MSG = "Invalid input. Please enter a number above 0";
 		
-		Predicate<Integer> isGreaterThanZero = e -> e > 0;
-		return SET.randomSample(PromptHelper.getSanitizedInt(PROMPT_N,ERR_MSG, isGreaterThanZero));
+		return PromptHelper.sanitizePrompt(
+				() -> SET.randomSample(PromptHelper.getInt("How many questions would you like to sample? "))
+		);
 	}
 	
 	private static void printResults() {

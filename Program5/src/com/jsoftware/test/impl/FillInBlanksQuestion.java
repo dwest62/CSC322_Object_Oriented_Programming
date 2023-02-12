@@ -22,7 +22,6 @@ public class FillInBlanksQuestion extends Question implements IFillInBlanksQuest
 		this.keywords = keywords;
 		int BLANK_COUNT =
 			(int) Arrays.stream(question.split(" ")).filter(e -> e.matches("^ ?_+[^A-Za-z]?$")).count();
-		System.out.println(BLANK_COUNT);
 		if(BLANK_COUNT != keywords.length)
 			throw new IllegalArgumentException(
 				"Invalid fill-in-the-blanks question. Number of blanks (" + BLANK_COUNT + ") does not match number " +

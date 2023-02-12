@@ -1,14 +1,12 @@
 package com.jsoftware.test.test;
 
-import menu.CLIMenu;
-import menu.CLIOption;
-import util.PromptHelper;
 import com.jsoftware.test.api.IQuestion;
 import com.jsoftware.test.api.IQuestionSet;
 import com.jsoftware.test.impl.QuestionFactory;
-
+import menu.CLIMenu;
+import menu.CLIOption;
+import util.PromptHelper;
 import java.util.Arrays;
-import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
@@ -31,6 +29,7 @@ public class TestMaker {
 			new CLIOption(6, "exit program", TestMaker::exit)
 		}
 	);
+	
 //	Entry point of program
 	public static void main(String[] args) {
 		init();
