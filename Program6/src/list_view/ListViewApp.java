@@ -41,6 +41,7 @@ public class ListViewApp extends Application {
 		scene.getStylesheets().add("list_view/styles.css");
 		stage.setScene(scene);
 		stage.show();
+		String x;
 	}
 	
 	private static Callback<ListView<Person>, ListCell<Person>> getCellFactory () {
