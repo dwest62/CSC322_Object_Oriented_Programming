@@ -20,7 +20,7 @@ import java.util.stream.IntStream;
 public class TestTaker {
 //	Number of correct answers
 	private static int correctAnswerCount = 0;
-	private static final QuestionFactory FACTORY = new QuestionFactory();
+	private static final IQuestionFactory FACTORY = new QuestionFactory();
 	private static IQuestionSet SET;
 	
 	public static void main(String[] args) {
@@ -133,7 +133,7 @@ public class TestTaker {
 	private static Boolean testFillInTheBlank(IFillInBlanksQuestion question) {
 		final String[] ANSWER =
 			Arrays
-				.stream(PromptHelper.getString("Your answer (Separate answers with comma.): ").split(","))
+				.stream(PromptHelper.getString("Your answer (Separate answers with comma): ").split(","))
 				.map(String::trim).toArray(String[]::new);
 		
 		return question.checkAnswer(ANSWER);
@@ -148,10 +148,10 @@ public class TestTaker {
 	 */
 	private static IQuestionSet promptRandomSample() {
 		final String PROMPT_N = "How many questions would you like to sample? ";
-		final String ERR_MSG = "Invalid input. Please enter a number above 0";
+		final String ERR_MSG = "Invalid input. Please enter a number between 1 and " + SET.size() + ".";
 		
-		Predicate<Integer> isGreaterThanZero = e -> e > 0;
-		return SET.randomSample(PromptHelper.getSanitizedInt(PROMPT_N,ERR_MSG, isGreaterThanZero));
+		Predicate<Integer> isValidSampleSize = e -> e > 0 && e < SET.size();
+		return SET.randomSample(PromptHelper.getSanitizedInt(PROMPT_N,ERR_MSG, isValidSampleSize));
 	}
 	
 	private static void printResults() {

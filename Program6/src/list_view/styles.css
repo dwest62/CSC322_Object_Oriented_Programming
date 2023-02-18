@@ -1,0 +1,7 @@
+#list {
+    -fx-background-color: white;
+}
+
+#list:focused, #list:selected {
+    -fx-background-color: -fx-focus-color;
+}
