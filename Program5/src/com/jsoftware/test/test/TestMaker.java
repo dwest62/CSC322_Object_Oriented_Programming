@@ -1,15 +1,12 @@
 package com.jsoftware.test.test;
 
-import com.jsoftware.test.api.IQuestionFactory;
-import menu.CLIMenu;
-import menu.CLIOption;
-import util.PromptHelper;
 import com.jsoftware.test.api.IQuestion;
 import com.jsoftware.test.api.IQuestionSet;
 import com.jsoftware.test.impl.QuestionFactory;
-
+import menu.CLIMenu;
+import menu.CLIOption;
+import util.PromptHelper;
 import java.util.Arrays;
-import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
@@ -19,7 +16,7 @@ import java.util.stream.IntStream;
  * Represents a CLI which allows the user to create a new test. The test will be saved to file upon exit of program.
  */
 public class TestMaker {
-	private static final IQuestionFactory FACTORY = new QuestionFactory();
+	private static final QuestionFactory FACTORY = new QuestionFactory();
 	private static String NAME = "test";
 	private static final IQuestionSet SET = FACTORY.makeEmptyQuestionSet();
 	private static final CLIMenu MENU = new CLIMenu(
@@ -32,6 +29,7 @@ public class TestMaker {
 			new CLIOption(6, "exit program", TestMaker::exit)
 		}
 	);
+	
 //	Entry point of program
 	public static void main(String[] args) {
 		init();

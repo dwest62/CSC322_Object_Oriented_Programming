@@ -72,4 +72,9 @@ public class PromptHelper {
 			return input;
 		});
 	}
+	
+	public static int getInt(String prompt) {
+		System.out.print(prompt);
+		return Integer.parseInt(INPUT.nextLine().trim());
+	}
 }

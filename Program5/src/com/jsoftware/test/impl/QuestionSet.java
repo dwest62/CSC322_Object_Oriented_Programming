@@ -46,8 +46,8 @@ public class QuestionSet implements IQuestionSet, java.io.Serializable{
 	 */
 	@Override
 	public IQuestionSet randomSample(int size) throws IllegalArgumentException {
-		if (size < 1 || size >= this.size()) throw new IllegalArgumentException(
-			"Invalid sample size. Please enter a value between 1 and " + (this.size() - 1));
+		if (size < 1 || size > this.size()) throw new IllegalArgumentException(
+			"Invalid sample size. Please enter a value between 1 and " + this.size());
 
 		int[] randomIndices = new Random().ints(0, this.size()).distinct().limit(size).toArray();
 		
